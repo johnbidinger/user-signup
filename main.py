@@ -66,7 +66,7 @@ def validate_form():
 
 @app.route('/signup_welcome')
 def welcome():
-    usererror = request.args.get('username')
+    username = request.args.get('username')
     template =  jinja_env.get_template('welcome.html')
     return template.render(username = username)
     
