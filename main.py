@@ -49,16 +49,24 @@ def validate_form():
     
     if not usererror and not passerror and email_valid:
         return redirect('/signup_welcome?username={0}'.format(username))
+    elif email_valid:
+        template = jinja_env.get_template('signup.html')
+        return template.render(usererror=usererror,
+            passerror=passerror,
+            username=username,
+            email=email)
     else:
         template = jinja_env.get_template('signup.html')
         return template.render(usererror=usererror,
             passerror=passerror,
-            emailerror=emailerror,
             username=username,
+            emailerror=emailerror,
             email=email)
+
 
 @app.route('/signup_welcome')
 def welcome():
+    usererror = request.args.get('username')
     template =  jinja_env.get_template('welcome.html')
     return template.render(username = username)
     
